@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, Brain, BookOpen, Users, Sparkles, ArrowRight, Zap, Shield, TrendingUp } from "lucide-react";
+import { Calendar, Brain, BookOpen, Users, Sparkles, ArrowRight, Zap, Shield, TrendingUp, ArrowUp } from "lucide-react";
 import { FounderCard } from "@/components/FounderCard";
 import { TodoistDemo } from "@/components/demo/TodoistDemo";
 
 const LandingPage = () => {
   const baseUrl = import.meta.env.BASE_URL;
+  
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   
   return (
     <div className="min-h-screen bg-background">
@@ -74,7 +78,7 @@ const LandingPage = () => {
       </section>
 
       {/* Todoist Demo Section */}
-      <section className="py-12 sm:py-16 md:py-24 lg:py-32 bg-muted/20">
+      <section id="demo" className="py-12 sm:py-16 md:py-24 lg:py-32 bg-muted/20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-4">
@@ -85,6 +89,17 @@ const LandingPage = () => {
             </p>
           </div>
           <TodoistDemo />
+          <div className="flex justify-center mt-8 sm:mt-12">
+            <Button
+              onClick={scrollToTop}
+              variant="outline"
+              size="lg"
+              className="gap-2"
+            >
+              <ArrowUp className="w-4 h-4" />
+              Back to Top
+            </Button>
+          </div>
         </div>
       </section>
 
