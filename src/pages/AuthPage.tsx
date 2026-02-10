@@ -27,15 +27,6 @@ export default function AuthPage() {
     setIsSubmitting(false);
   };
 
-  const handleAutoSignIn = async () => {
-    setIsSubmitting(true);
-    const { error } = await autoSignIn();
-    if (!error) {
-      navigate('/app');
-    }
-    setIsSubmitting(false);
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
