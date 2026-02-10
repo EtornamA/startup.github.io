@@ -80,14 +80,6 @@ const LandingPage = () => {
       {/* Todoist Demo Section */}
       <section id="demo" className="py-12 sm:py-16 md:py-24 lg:py-32 bg-muted/20">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-4">
-              Try Our <span className="text-gradient">Task Manager</span>
-            </h2>
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-              Experience our Todoist-style task management. Add tasks and see them organized by day.
-            </p>
-          </div>
           <TodoistDemo />
           <div className="flex justify-center mt-8 sm:mt-12">
             <Button

@@ -109,7 +109,18 @@ export function TodoistDemo() {
   return (
     <Card className="w-full max-w-2xl mx-auto border-2">
       <div className="p-4 sm:p-6">
-          <div className="mb-6">
+        {/* Header Section */}
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
+            Try Our <span className="text-gradient">Task Manager</span>
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+            Experience our Todoist-style task management. Add tasks and see them organized by day.
+          </p>
+        </div>
+
+        {/* Task Input Section */}
+        <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xl sm:text-2xl font-bold">Quick Tasks</h3>
             {todos.length > 0 && (
