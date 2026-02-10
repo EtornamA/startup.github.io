@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Brain, BookOpen, Users, Sparkles, ArrowRight } from "lucide-react";
 
 const LandingPage = () => {
+  const baseUrl = import.meta.env.BASE_URL;
+  
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -116,7 +118,7 @@ const LandingPage = () => {
               <div className="text-center p-6 rounded-lg border border-border bg-card/50">
                 <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4 ring-2 ring-primary/20">
                   <img 
-                    src="/oni.jpeg" 
+                    src={`${baseUrl}oni.jpeg`}
                     alt="Fredre'Oni (Oni) Terrado" 
                     className="w-full h-full object-cover"
                   />
@@ -127,7 +129,7 @@ const LandingPage = () => {
               <div className="text-center p-6 rounded-lg border border-border bg-card/50">
                 <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4 ring-2 ring-primary/20">
                   <img 
-                    src="/etornam.jpeg" 
+                    src={`${baseUrl}etornam.jpeg`}
                     alt="Etornam Agbemabiese" 
                     className="w-full h-full object-cover"
                   />
@@ -138,7 +140,7 @@ const LandingPage = () => {
               <div className="text-center p-6 rounded-lg border border-border bg-card/50">
                 <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4 ring-2 ring-primary/20">
                   <img 
-                    src="/grace.jpeg" 
+                    src={`${baseUrl}grace.jpeg`}
                     alt="Grace Odondi" 
                     className="w-full h-full object-cover"
                   />
