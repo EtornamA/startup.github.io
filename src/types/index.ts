@@ -1,4 +1,4 @@
-// Forward Data Model Types
+// FUTR Data Model Types
 
 export interface User {
   id: string;
@@ -83,6 +83,10 @@ export interface Assignment {
   dueDate: Date;
   priority: 'low' | 'medium' | 'high';
   status: 'todo' | 'in-progress' | 'completed';
+  /** Percentage of course grade (0–100). Used for Progress Score / what-if analytics. */
+  weight?: number;
+  /** Minutes. Used by Time-Blocker for Auto-Schedule and sprint sizing. */
+  estimatedTimeMinutes?: number;
   linkedEventId?: string;
   createdAt: Date;
 }

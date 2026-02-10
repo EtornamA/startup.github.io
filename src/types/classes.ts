@@ -68,6 +68,8 @@ export interface ClassTodoData {
   due_date: string | null;
   priority: 'low' | 'medium' | 'high';
   status: 'todo' | 'in-progress' | 'completed';
+  /** Minutes. Used by Time-Blocker / Auto-Schedule. */
+  estimated_time_minutes?: number | null;
   linked_session_id: string | null;
   linked_deadline_id: string | null;
   created_at: string;

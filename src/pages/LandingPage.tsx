@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, Brain, BookOpen, Users, Sparkles, ArrowRight, Zap, Shield, TrendingUp, ArrowUp } from "lucide-react";
+import { Calendar, Brain, BookOpen, Users, Sparkles, ArrowRight, Zap, TrendingUp, ArrowUp } from "lucide-react";
 import { FounderCard } from "@/components/FounderCard";
 import { TodoistDemo } from "@/components/demo/TodoistDemo";
 
@@ -16,14 +16,18 @@ const LandingPage = () => {
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className="flex items-center space-x-2 hover:opacity-90 transition-opacity"
+          >
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
               <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
             <span className="text-lg sm:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
-              Forward
+              FUTR
             </span>
-          </div>
+          </button>
           <div className="flex items-center gap-2 sm:gap-4">
             <Button variant="ghost" size="sm" className="text-sm px-3 sm:px-4" asChild>
               <Link to="/auth">Sign In</Link>
@@ -51,7 +55,7 @@ const LandingPage = () => {
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
               The all-in-one platform that combines smart scheduling, AI-powered study guides, 
-              collaborative learning, and intelligent task management—all designed to help you excel.
+              and collaborative learning—all designed to help you excel.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 sm:pt-6 px-4">
               <Button 
@@ -244,15 +248,11 @@ const LandingPage = () => {
       <section className="py-12 sm:py-16 md:py-24 lg:py-32 bg-gradient-to-br from-primary/10 via-background to-primary/5">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 p-6 sm:p-8 md:p-12 lg:p-16 rounded-2xl sm:rounded-3xl border-2 border-primary/20 bg-gradient-to-br from-card to-card/50 shadow-2xl">
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20 text-xs sm:text-sm font-medium text-primary mb-2 sm:mb-4">
-              <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span>Trusted by thousands of students</span>
-            </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight px-2">
               Ready to Transform Your <span className="text-gradient">Study Experience?</span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-              Join thousands of students who are already achieving academic excellence with Forward
+              Join thousands of students who are already achieving academic excellence with FUTR
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 px-4">
               <Button 
@@ -287,7 +287,7 @@ const LandingPage = () => {
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
                   <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
-                <span className="text-lg sm:text-xl font-bold">Forward</span>
+                <span className="text-lg sm:text-xl font-bold">FUTR</span>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground">
                 The all-in-one platform for academic success
@@ -319,7 +319,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="pt-6 sm:pt-8 border-t text-center text-xs sm:text-sm text-muted-foreground px-4">
-            <p>© 2024 Forward. All rights reserved. Built with passion for students everywhere.</p>
+            <p>© 2024 FUTR. All rights reserved. Built with passion for students everywhere.</p>
           </div>
         </div>
       </footer>

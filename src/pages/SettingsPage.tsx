@@ -205,7 +205,7 @@ export default function SettingsPage() {
             Appearance
           </CardTitle>
           <CardDescription>
-            Customize how Forward looks
+            Customize how FUTR looks
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

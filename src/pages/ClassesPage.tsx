@@ -17,6 +17,7 @@ export function ClassesPage() {
   const { classes, isLoading, deleteClass } = useClasses();
   const [addClassOpen, setAddClassOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
+  const [droppedFile, setDroppedFile] = useState<File | null>(null);
 
   // Fetch sessions and deadlines for all classes
   const { data: allSessions = [] } = useQuery({
@@ -92,6 +93,35 @@ export function ClassesPage() {
             <Card key={i} className="h-[280px] animate-pulse bg-secondary/50" />
           ))}
         </div>
+      ) : classes.length === 0 ? (
+        /* Empty state: drop zone for syllabi */
+        <Card
+          className="border-2 border-dashed border-muted-foreground/25 hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 cursor-pointer min-h-[320px] flex flex-col items-center justify-center"
+          onClick={() => setImportOpen(true)}
+          onDrop={(e) => {
+            e.preventDefault();
+            const file = e.dataTransfer.files[0];
+            if (file && (file.type === 'application/pdf' || file.type.startsWith('image/'))) {
+              setDroppedFile(file);
+              setImportOpen(true);
+            }
+          }}
+          onDragOver={(e) => e.preventDefault()}
+        >
+          <CardContent className="flex flex-col items-center justify-center py-16 px-8 text-center">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+              <Upload className="h-8 w-8 text-primary" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-1">Drop a Syllabus to Start</h3>
+            <p className="text-sm text-muted-foreground max-w-sm mb-6">
+              Upload a PDF or screenshot of your syllabus and we&apos;ll create your class and assignments automatically.
+            </p>
+            <Button variant="outline" onClick={(e) => { e.stopPropagation(); setImportOpen(true); }}>
+              <Upload className="h-4 w-4 mr-2" />
+              Choose file instead
+            </Button>
+          </CardContent>
+        </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {classes.map((cls) => (
@@ -129,7 +159,14 @@ export function ClassesPage() {
 
       {/* Dialogs */}
       <AddClassDialog open={addClassOpen} onOpenChange={setAddClassOpen} />
-      <ImportSyllabusDialog open={importOpen} onOpenChange={setImportOpen} />
+      <ImportSyllabusDialog
+        open={importOpen}
+        onOpenChange={(open) => {
+          setImportOpen(open);
+          if (!open) setDroppedFile(null);
+        }}
+        initialFile={droppedFile}
+      />
     </div>
   );
 }

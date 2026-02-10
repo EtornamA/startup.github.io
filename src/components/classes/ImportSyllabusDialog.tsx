@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { format } from 'date-fns';
 import { Upload, FileText, AlertCircle, Check, X, Loader2 } from 'lucide-react';
 import {
@@ -24,12 +24,15 @@ import { useToast } from '@/hooks/use-toast';
 interface ImportSyllabusDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** When set (e.g. file dropped on empty Classes page), dialog will open and start parsing this file. */
+  initialFile?: File | null;
 }
 
 type Step = 'upload' | 'review' | 'confirm';
 
-export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialogProps) {
+export function ImportSyllabusDialog({ open, onOpenChange, initialFile }: ImportSyllabusDialogProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const processedInitialFileRef = useRef(false);
   const { isParsing, extractedData, parseSyllabus, clearExtraction } = useSyllabusParser();
   const { createClass, isCreating } = useClasses();
   const { toast } = useToast();
@@ -59,6 +62,14 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
       setStep('review');
     }
   }, [parseSyllabus, toast]);
+
+  useEffect(() => {
+    if (!open) processedInitialFileRef.current = false;
+    else if (initialFile && !processedInitialFileRef.current) {
+      processedInitialFileRef.current = true;
+      handleFileSelect(initialFile);
+    }
+  }, [open, initialFile, handleFileSelect]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();

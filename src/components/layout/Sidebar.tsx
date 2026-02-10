@@ -76,7 +76,7 @@ export function Sidebar() {
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-sm">
                 <span className="text-lg font-bold text-white">F</span>
               </div>
-              <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">Forward</span>
+              <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">FUTR</span>
             </div>
           )}
           {!sidebarOpen && (
