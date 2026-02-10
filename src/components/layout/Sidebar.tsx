@@ -71,20 +71,19 @@ export function Sidebar() {
         )}
       >
       <div className="flex h-full flex-col">
-        {/* Logo */}
+        {/* Logo - link to landing (hero) */}
         <div className="flex h-16 items-center justify-between border-b border-border px-4 bg-sidebar">
-          {sidebarOpen && (
-            <div className="flex items-center gap-2">
+          {sidebarOpen ? (
+            <NavLink to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-sm">
                 <span className="text-lg font-bold text-white">F</span>
               </div>
               <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">FUTR</span>
-            </div>
-          )}
-          {!sidebarOpen && (
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-sm mx-auto">
+            </NavLink>
+          ) : (
+            <NavLink to="/" className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-sm mx-auto hover:opacity-90 transition-opacity">
               <span className="text-lg font-bold text-white">F</span>
-            </div>
+            </NavLink>
           )}
           <Button
             variant="ghost"

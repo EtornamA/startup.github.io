@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, Brain, BookOpen, Users, Sparkles, ArrowRight, TrendingUp, ArrowUp } from "lucide-react";
+import { Calendar, Brain, BookOpen, Users, Sparkles, TrendingUp } from "lucide-react";
 import { FounderCard } from "@/components/FounderCard";
-import { TodoistDemo } from "@/components/demo/TodoistDemo";
 
 const LandingPage = () => {
   const baseUrl = import.meta.env.BASE_URL;
   
   const scrollToHero = () => {
-    document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
+    const hero = document.getElementById('hero');
+    if (hero) {
+      hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
   
   return (
@@ -33,9 +37,6 @@ const LandingPage = () => {
             <Button variant="ghost" size="sm" className="text-sm px-3 sm:px-4" asChild>
               <Link to="/auth">Sign In</Link>
             </Button>
-            <Button size="sm" className="text-sm px-3 sm:px-4" asChild>
-              <Link to="/app">Get Started</Link>
-            </Button>
           </div>
         </div>
       </nav>
@@ -58,40 +59,12 @@ const LandingPage = () => {
               <Button 
                 asChild 
                 size="lg" 
-                className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 h-auto shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
-              >
-                <Link to="/app">
-                  Get Started
-                  <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
-                </Link>
-              </Button>
-              <Button 
-                asChild 
-                size="lg" 
                 variant="outline"
                 className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 h-auto border-2 w-full sm:w-auto"
               >
                 <Link to="/app">View Demo</Link>
               </Button>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Todoist Demo Section */}
-      <section id="demo" className="py-12 sm:py-16 md:py-24 lg:py-32 bg-muted/20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <TodoistDemo />
-          <div className="flex justify-center mt-8 sm:mt-12">
-            <Button
-              onClick={scrollToTop}
-              variant="outline"
-              size="lg"
-              className="gap-2"
-            >
-              <ArrowUp className="w-4 h-4" />
-              Back to Top
-            </Button>
           </div>
         </div>
       </section>
@@ -247,18 +220,6 @@ const LandingPage = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight px-2">
               Ready to Transform Your <span className="text-gradient">Study Experience?</span>
             </h2>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 px-4">
-              <Button 
-                asChild 
-                size="lg" 
-                className="text-base sm:text-lg px-6 sm:px-8 md:px-10 py-5 sm:py-6 md:py-7 h-auto shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
-              >
-                <Link to="/app">
-                  Get Started
-                  <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
-                </Link>
-              </Button>
-            </div>
           </div>
         </div>
       </section>
