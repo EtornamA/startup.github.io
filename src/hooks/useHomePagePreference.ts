@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
 export type HomePageOption = 
-  | '/'
-  | '/todo'
-  | '/notebook'
-  | '/recap'
-  | '/settings';
+  | '/app'
+  | '/app/todo'
+  | '/app/notebook'
+  | '/app/recap'
+  | '/app/settings';
 
 export interface HomePageConfig {
   value: HomePageOption;
@@ -13,17 +13,17 @@ export interface HomePageConfig {
 }
 
 export const homePageOptions: HomePageConfig[] = [
-  { value: '/', label: 'Calendar' },
-  { value: '/todo', label: 'To-Do' },
-  { value: '/notebook', label: 'Notebook' },
-  { value: '/recap', label: 'Weekly Recap' },
-  { value: '/settings', label: 'Settings' },
+  { value: '/app', label: 'Calendar' },
+  { value: '/app/todo', label: 'To-Do' },
+  { value: '/app/notebook', label: 'Notebook' },
+  { value: '/app/recap', label: 'Weekly Recap' },
+  { value: '/app/settings', label: 'Settings' },
 ];
 
 const STORAGE_KEY = 'focus-home-page';
 
 export function useHomePagePreference() {
-  const [homePage, setHomePageState] = useState<HomePageOption>('/');
+  const [homePage, setHomePageState] = useState<HomePageOption>('/app');
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);

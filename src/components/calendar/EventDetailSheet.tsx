@@ -52,7 +52,7 @@ export function EventDetailSheet({ event, open, onOpenChange }: EventDetailSheet
         title: `${todos.length} to-do${todos.length > 1 ? 's' : ''} extracted!`,
         description: "View them in your To-Do list",
         action: (
-          <Button variant="outline" size="sm" onClick={() => navigate('/todo')}>
+          <Button variant="outline" size="sm" onClick={() => navigate('/app/todo')}>
             View To-Dos
           </Button>
         ),

@@ -26,7 +26,7 @@ export default function AuthPage() {
   // Redirect if already logged in
   useEffect(() => {
     if (!loading && user) {
-      navigate('/');
+      navigate('/app');
     }
   }, [user, loading, navigate]);
 
@@ -57,12 +57,12 @@ export default function AuthPage() {
     if (isSignUp) {
       const { error } = await signUp(email, password, displayName);
       if (!error) {
-        navigate('/');
+        navigate('/app');
       }
     } else {
       const { error } = await signIn(email, password);
       if (!error) {
-        navigate('/');
+        navigate('/app');
       }
     }
     

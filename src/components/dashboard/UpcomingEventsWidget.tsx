@@ -50,7 +50,7 @@ export function UpcomingEventsWidget() {
             Upcoming Events
           </CardTitle>
           <Button variant="ghost" size="sm" asChild>
-            <Link to="/calendar">
+            <Link to="/app/calendar">
               View All
               <ChevronRight className="h-4 w-4 ml-1" />
             </Link>

@@ -51,7 +51,7 @@ export function TodoWidget() {
             To-Do List
           </CardTitle>
           <Button variant="ghost" size="sm" asChild>
-            <Link to="/todo">
+            <Link to="/app/todo">
               View All
               <ChevronRight className="h-4 w-4 ml-1" />
             </Link>

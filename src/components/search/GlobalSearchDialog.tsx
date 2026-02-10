@@ -231,17 +231,17 @@ export function GlobalSearchDialog() {
         if (result.classId) {
           navigate(`/classes/${result.classId}`);
         } else {
-          navigate('/');
+          navigate('/app');
         }
         break;
       case 'deadline':
         navigate(`/classes/${result.classId}`);
         break;
       case 'task':
-        navigate('/todo');
+        navigate('/app/todo');
         break;
       default:
-        navigate('/');
+        navigate('/app');
     }
   };
 

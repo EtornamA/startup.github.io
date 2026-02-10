@@ -40,7 +40,7 @@ export function WeeklyRecapWidget() {
             Weekly Recap
           </CardTitle>
           <Button variant="ghost" size="sm" asChild>
-            <Link to="/recap">
+            <Link to="/app/recap">
               View All
               <ChevronRight className="h-4 w-4 ml-1" />
             </Link>

@@ -23,10 +23,10 @@ import { useFocusMode } from '@/hooks/useFocusMode';
 import { useAuth } from '@/hooks/useAuth';
 
 const navigation = [
-  { name: 'Calendar', href: '/calendar', icon: Calendar },
-  { name: 'To-Do', href: '/todo', icon: CheckSquare },
-  { name: 'Notebook', href: '/notebook', icon: BookOpen },
-  { name: 'Weekly Recap', href: '/recap', icon: Sparkles },
+  { name: 'Calendar', href: '/app/calendar', icon: Calendar },
+  { name: 'To-Do', href: '/app/todo', icon: CheckSquare },
+  { name: 'Notebook', href: '/app/notebook', icon: BookOpen },
+  { name: 'Weekly Recap', href: '/app/recap', icon: Sparkles },
 ];
 
 export function Sidebar() {
@@ -204,7 +204,7 @@ export function Sidebar() {
           </div>
 
           <NavLink
-            to="/settings"
+            to="/app/settings"
             className={cn(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
               "text-muted-foreground hover:bg-secondary hover:text-foreground"

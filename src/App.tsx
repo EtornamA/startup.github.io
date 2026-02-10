@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
+import LandingPage from "@/pages/LandingPage";
 import CalendarPage from "@/pages/CalendarPage";
 import TodoPage from "@/pages/TodoPage";
 import NotebookPage from "@/pages/NotebookPage";
@@ -37,10 +38,10 @@ function HomeRedirect() {
   const stored = localStorage.getItem('focus-home-page') as HomePageOption | null;
   const homePage = stored && homePageOptions.some(opt => opt.value === stored) 
     ? stored 
-    : '/';
+    : '/app';
   
-  // If home is already '/', render CalendarPage directly
-  if (homePage === '/') {
+  // If home is already '/app', render CalendarPage directly
+  if (homePage === '/app') {
     return <CalendarPage />;
   }
   
@@ -55,14 +56,15 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<LandingPage />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route element={<MainLayout />}>
-            <Route path="/" element={<HomeRedirect />} />
-            <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/todo" element={<TodoPage />} />
-            <Route path="/notebook" element={<NotebookPage />} />
-            <Route path="/recap" element={<RecapPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/app" element={<HomeRedirect />} />
+            <Route path="/app/calendar" element={<CalendarPage />} />
+            <Route path="/app/todo" element={<TodoPage />} />
+            <Route path="/app/notebook" element={<NotebookPage />} />
+            <Route path="/app/recap" element={<RecapPage />} />
+            <Route path="/app/settings" element={<SettingsPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
