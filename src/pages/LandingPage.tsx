@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, Brain, BookOpen, Users, Sparkles, ArrowRight, Zap, TrendingUp, ArrowUp } from "lucide-react";
+import { Calendar, Brain, BookOpen, Users, Sparkles, ArrowRight, TrendingUp, ArrowUp } from "lucide-react";
 import { FounderCard } from "@/components/FounderCard";
 import { TodoistDemo } from "@/components/demo/TodoistDemo";
 
 const LandingPage = () => {
   const baseUrl = import.meta.env.BASE_URL;
   
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToHero = () => {
+    document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
   };
   
   return (
@@ -18,11 +18,12 @@ const LandingPage = () => {
         <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           <button
             type="button"
-            onClick={scrollToTop}
+            onClick={scrollToHero}
             className="flex items-center space-x-2 hover:opacity-90 transition-opacity"
+            aria-label="Back to top"
           >
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-              <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              <span className="text-sm sm:text-base font-bold text-white">F</span>
             </div>
             <span className="text-lg sm:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
               FUTR
@@ -40,14 +41,10 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-primary/5">
+      <section id="hero" className="relative overflow-hidden bg-gradient-to-b from-background via-background to-primary/5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]" />
         <div className="relative container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 lg:py-40">
           <div className="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20 text-xs sm:text-sm font-medium text-primary mb-2 sm:mb-4">
-              <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span>AI-Powered Study Platform</span>
-            </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight px-2">
               <span className="text-gradient">Transform Your</span>
               <br />
@@ -214,7 +211,6 @@ const LandingPage = () => {
                   "Selected for DaVita's highly competitive Redwoods program",
                   "STAR Program Consultant at UNC Kenan-Flagler",
                   "VCIC Fellow - analyzing early-stage startups and venture capital",
-                  "Founder of Zellit Marketplace - mobile-first campus resale platform",
                   "Durham Institute for Responsible Citizenship Fellow"
                 ]}
                 skills={["Venture Capital", "Startup Evaluation", "Management Consulting", "Strategy", "Product Development", "Data Analytics"]}
@@ -251,9 +247,6 @@ const LandingPage = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight px-2">
               Ready to Transform Your <span className="text-gradient">Study Experience?</span>
             </h2>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-              Join thousands of students who are already achieving academic excellence with FUTR
-            </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 px-4">
               <Button 
                 asChild 
@@ -264,14 +257,6 @@ const LandingPage = () => {
                   Get Started
                   <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                 </Link>
-              </Button>
-              <Button 
-                asChild 
-                size="lg" 
-                variant="outline"
-                className="text-base sm:text-lg px-6 sm:px-8 md:px-10 py-5 sm:py-6 md:py-7 h-auto border-2 w-full sm:w-auto"
-              >
-                <Link to="/app">Schedule a Demo</Link>
               </Button>
             </div>
           </div>

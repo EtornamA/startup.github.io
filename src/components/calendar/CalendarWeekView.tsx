@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store/useAppStore';
 import { Event, Class } from '@/types';
 
-const hours = Array.from({ length: 13 }, (_, i) => i + 7); // 7 AM to 7 PM
+const hours = Array.from({ length: 24 }, (_, i) => i); // midnight to midnight (0–23)
 
 interface CalendarWeekViewProps {
   onEventClick: (event: Event) => void;
@@ -38,9 +38,13 @@ export function CalendarWeekView({ onEventClick, onDateClick }: CalendarWeekView
     return events.filter((event) => isSameDay(new Date(event.date), day));
   };
 
+  const DEFAULT_EVENT_COLOR = '#4B9CD3'; /* UNC Carolina blue */
+
   const getClassById = (classId: string): Class | undefined => {
     return classes.find((c) => c.id === classId);
   };
+
+  const getEventColor = (classId: string) => getClassById(classId)?.color ?? DEFAULT_EVENT_COLOR;
 
   const hasNotesForEvent = (eventId: string): boolean => {
     return notes.some((note) => note.eventId === eventId);
@@ -50,8 +54,9 @@ export function CalendarWeekView({ onEventClick, onDateClick }: CalendarWeekView
     const [startHour, startMin] = event.startTime.split(':').map(Number);
     const [endHour, endMin] = event.endTime.split(':').map(Number);
     
-    const top = ((startHour - 7) * 60 + startMin) * (60 / 60); // 60px per hour
-    const height = ((endHour - startHour) * 60 + (endMin - startMin)) * (60 / 60);
+    const pxPerHour = 60;
+    const top = (startHour * 60 + startMin) * (pxPerHour / 60);
+    const height = ((endHour - startHour) * 60 + (endMin - startMin)) * (pxPerHour / 60);
     
     return { top, height: Math.max(height, 30) };
   };
@@ -131,7 +136,7 @@ export function CalendarWeekView({ onEventClick, onDateClick }: CalendarWeekView
                     className="h-[60px] border-b border-border pr-2 text-right"
                   >
                     <span className="text-xs text-muted-foreground relative -top-2">
-                      {hour === 12 ? '12 PM' : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
+                      {hour === 0 ? '12 AM' : hour === 12 ? '12 PM' : hour > 12 ? `${hour - 12} PM` : `${hour} AM`}
                     </span>
                   </div>
                 ))}
@@ -160,7 +165,7 @@ export function CalendarWeekView({ onEventClick, onDateClick }: CalendarWeekView
 
                     {/* Events */}
                     {dayEvents.map((event) => {
-                      const eventClass = getClassById(event.classId);
+                      const eventColor = getEventColor(event.classId);
                       const { top, height } = getEventPosition(event);
                       const hasNotes = hasNotesForEvent(event.id);
 
@@ -176,16 +181,16 @@ export function CalendarWeekView({ onEventClick, onDateClick }: CalendarWeekView
                           style={{
                             top: `${top}px`,
                             height: `${height}px`,
-                            backgroundColor: `${eventClass?.color}25`,
+                            backgroundColor: `${eventColor}25`,
                             borderLeftWidth: '3px',
-                            borderLeftColor: eventClass?.color,
+                            borderLeftColor: eventColor,
                           }}
                         >
                           <div className="flex flex-col h-full overflow-hidden">
                             <div className="flex items-start justify-between gap-1">
                               <span
                                 className="text-xs font-medium truncate"
-                                style={{ color: eventClass?.color }}
+                                style={{ color: eventColor }}
                               >
                                 {event.title}
                               </span>
@@ -230,16 +235,13 @@ export function CalendarWeekView({ onEventClick, onDateClick }: CalendarWeekView
 function CurrentTimeIndicator({ days }: { days: Date[] }) {
   const now = new Date();
   const todayIndex = days.findIndex((day) => isToday(day));
-  
+
   if (todayIndex === -1) return null;
 
   const hours = now.getHours();
   const minutes = now.getMinutes();
-  
-  if (hours < 7 || hours >= 20) return null;
-
-  const top = ((hours - 7) * 60 + minutes) * (60 / 60);
-  const left = `calc(${(todayIndex + 1) * 12.5}% + 4px)`; // Adjusted for time column
+  const pxPerHour = 60;
+  const top = (hours * 60 + minutes) * (pxPerHour / 60);
 
   return (
     <div

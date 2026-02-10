@@ -12,7 +12,8 @@ import {
   LogIn,
   LogOut,
   BookOpen,
-  GraduationCap
+  GraduationCap,
+  LayoutList
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -25,6 +26,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 const navigation = [
   { name: 'Calendar', href: '/app/calendar', icon: Calendar },
+  { name: 'Schedule Builder', href: '/app/schedule-builder', icon: LayoutList },
   { name: 'Classes', href: '/app/classes', icon: GraduationCap },
   { name: 'Assignments', href: '/app/todo', icon: CheckSquare },
   { name: 'Notebook', href: '/app/notebook', icon: BookOpen },

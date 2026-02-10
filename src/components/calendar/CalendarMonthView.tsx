@@ -41,9 +41,13 @@ export function CalendarMonthView({ onEventClick, onDateClick }: CalendarMonthVi
     return events.filter((event) => isSameDay(new Date(event.date), day));
   };
 
+  const DEFAULT_EVENT_COLOR = '#4B9CD3'; /* UNC Carolina blue */
+
   const getClassById = (classId: string): Class | undefined => {
     return classes.find((c) => c.id === classId);
   };
+
+  const getEventColor = (classId: string) => getClassById(classId)?.color ?? DEFAULT_EVENT_COLOR;
 
   const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1));
   const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
@@ -119,7 +123,7 @@ export function CalendarMonthView({ onEventClick, onDateClick }: CalendarMonthVi
                 </div>
                 <div className="space-y-1">
                   {dayEvents.slice(0, 3).map((event) => {
-                    const eventClass = getClassById(event.classId);
+                    const eventColor = getEventColor(event.classId);
                     return (
                       <div
                         key={event.id}
@@ -129,8 +133,8 @@ export function CalendarMonthView({ onEventClick, onDateClick }: CalendarMonthVi
                         }}
                         className="px-2 py-0.5 text-xs rounded truncate cursor-pointer transition-colors"
                         style={{
-                          backgroundColor: `${eventClass?.color}30`,
-                          color: eventClass?.color,
+                          backgroundColor: `${eventColor}30`,
+                          color: eventColor,
                         }}
                       >
                         {event.title}

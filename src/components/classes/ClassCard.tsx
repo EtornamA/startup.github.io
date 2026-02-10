@@ -96,7 +96,7 @@ export function ClassCard({
   return (
     <Card 
       className="group overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:border-primary/30"
-      onClick={() => navigate(`/classes/${classData.id}`)}
+      onClick={() => navigate(`/app/classes/${classData.id}`)}
     >
       {/* Color Bar */}
       <div 

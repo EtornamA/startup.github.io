@@ -85,7 +85,7 @@ export function ClassDetailPage() {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-4">
         <p className="text-muted-foreground">Class not found</p>
-        <Button onClick={() => navigate('/classes')}>Back to Classes</Button>
+        <Button onClick={() => navigate('/app/classes')}>Back to Classes</Button>
       </div>
     );
   }
@@ -137,7 +137,7 @@ export function ClassDetailPage() {
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => navigate('/classes')}
+          onClick={() => navigate('/app/classes')}
           className="mb-4"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />

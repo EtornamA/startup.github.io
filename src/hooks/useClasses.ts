@@ -1,32 +1,69 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { ClassData, SessionData, DeadlineData, ClassTodoData, ClassFormData } from '@/types/classes';
+import { ClassData, SessionData, DeadlineData, ClassTodoData, ClassFormData, CLASS_COLORS } from '@/types/classes';
 import { useToast } from '@/hooks/use-toast';
 import { addDays, parseISO, format, isBefore, isAfter, getDay, startOfDay, setHours, setMinutes } from 'date-fns';
 import { useAppStore } from '@/store/useAppStore';
 import { useTodoistStore } from '@/store/useTodoistStore';
 import { Event } from '@/types';
+import { useAuth } from '@/hooks/useAuth';
+
+const MOCK_USER_ID = 'john-adams-id';
+const now = () => new Date().toISOString();
+
+function getMockClasses(): ClassData[] {
+  const base = { user_id: MOCK_USER_ID, timezone: 'America/New_York', section_number: null, office_hours_day: null, office_hours_time: null, office_hours_location: null, class_website: null, notes: null, syllabus_url: null, syllabus_parsed_at: null, created_at: now(), updated_at: now() };
+  const classes: [string, string, string | null, number[], string, string, string, string, string][] = [
+    ['Introduction to Computer Science', 'CS 101', '#14b8a6', [1, 3, 5], '09:00', '09:50', 'Room 204', '2025-08-18', '2025-12-10'],
+    ['Data Structures', 'CS 201', '#8b5cf6', [1, 3], '11:00', '12:15', 'Room 105', '2025-08-18', '2025-12-10'],
+    ['Calculus II', 'MATH 232', '#f59e0b', [2, 4], '10:10', '11:00', 'Room 301', '2025-08-18', '2025-12-10'],
+    ['Principles of Economics', 'ECON 101', '#22c55e', [1, 3, 5], '14:00', '14:50', 'Room 120', '2025-08-18', '2025-12-10'],
+    ['Writing and Rhetoric', 'ENGL 105', '#ec4899', [2, 4], '12:30', '13:45', 'Room 408', '2025-08-18', '2025-12-10'],
+    ['General Chemistry', 'CHEM 101', '#6366f1', [1, 3], '08:00', '09:15', 'Lab 2', '2025-08-18', '2025-12-10'],
+    ['Introduction to Psychology', 'PSYC 101', '#3b82f6', [2, 4], '15:30', '16:45', 'Room 210', '2025-08-18', '2025-12-10'],
+  ];
+  return classes.map(([name, code, color, meeting_days, start_time, end_time, location, semester_start, semester_end], i) => ({
+    ...base,
+    id: `mock-class-${i + 1}`,
+    name,
+    code,
+    color: color || CLASS_COLORS[i % CLASS_COLORS.length],
+    professor_name: 'Professor Smith',
+    professor_email: null,
+    meeting_days,
+    start_time,
+    end_time,
+    location,
+    semester_start,
+    semester_end,
+  }));
+}
 
 export function useClasses() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
-  // Fetch all classes
+  // Fetch all classes (mock for John Adams, otherwise Supabase)
   const classesQuery = useQuery({
-    queryKey: ['classes'],
+    queryKey: ['classes', user?.id],
     queryFn: async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Not authenticated');
+      if (user?.id === MOCK_USER_ID) {
+        return getMockClasses();
+      }
+      const { data: { user: sbUser } } = await supabase.auth.getUser();
+      if (!sbUser) throw new Error('Not authenticated');
 
       const { data, error } = await supabase
         .from('classes')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', sbUser.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
       return data as ClassData[];
     },
+    enabled: !!user,
   });
 
   // Generate sessions for a class based on meeting schedule
@@ -265,11 +302,17 @@ export function useClassDetail(classId: string | undefined) {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  // Fetch class
+  const isMockClassId = classId?.startsWith('mock-class-') ?? false;
+
+  // Fetch class (mock or Supabase)
   const classQuery = useQuery({
     queryKey: ['class', classId],
     queryFn: async () => {
       if (!classId) return null;
+      if (isMockClassId) {
+        const mockClasses = getMockClasses();
+        return mockClasses.find((c) => c.id === classId) ?? null;
+      }
       const { data, error } = await supabase
         .from('classes')
         .select('*')
@@ -282,11 +325,12 @@ export function useClassDetail(classId: string | undefined) {
     enabled: !!classId,
   });
 
-  // Fetch sessions
+  // Fetch sessions (empty for mock classes)
   const sessionsQuery = useQuery({
     queryKey: ['sessions', classId],
     queryFn: async () => {
       if (!classId) return [];
+      if (isMockClassId) return [];
       const { data, error } = await supabase
         .from('sessions')
         .select('*')
@@ -299,11 +343,12 @@ export function useClassDetail(classId: string | undefined) {
     enabled: !!classId,
   });
 
-  // Fetch deadlines
+  // Fetch deadlines (empty for mock classes)
   const deadlinesQuery = useQuery({
     queryKey: ['deadlines', classId],
     queryFn: async () => {
       if (!classId) return [];
+      if (isMockClassId) return [];
       const { data, error } = await supabase
         .from('deadlines')
         .select('*')
@@ -316,11 +361,12 @@ export function useClassDetail(classId: string | undefined) {
     enabled: !!classId,
   });
 
-  // Fetch class todos
+  // Fetch class todos (empty for mock classes)
   const todosQuery = useQuery({
     queryKey: ['class-todos', classId],
     queryFn: async () => {
       if (!classId) return [];
+      if (isMockClassId) return [];
       const { data, error } = await supabase
         .from('class_todos')
         .select('*')
@@ -333,11 +379,12 @@ export function useClassDetail(classId: string | undefined) {
     enabled: !!classId,
   });
 
-  // Fetch notes for this class
+  // Fetch notes for this class (empty for mock classes)
   const notesQuery = useQuery({
     queryKey: ['class-notes', classId],
     queryFn: async () => {
       if (!classId) return [];
+      if (isMockClassId) return [];
       const { data, error } = await supabase
         .from('notes')
         .select('*')

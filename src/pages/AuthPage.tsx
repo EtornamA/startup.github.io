@@ -11,20 +11,20 @@ export default function AuthPage() {
   const { autoSignIn, user, loading } = useAuth();
   const navigate = useNavigate();
 
-  // Redirect if already logged in
+  // Redirect if already logged in (e.g. mock session in localStorage)
   useEffect(() => {
     if (!loading && user) {
-      navigate('/app');
+      navigate('/app', { replace: true });
     }
   }, [user, loading, navigate]);
 
   const handleAutoSignIn = async () => {
     setIsSubmitting(true);
     const { error } = await autoSignIn();
-    if (!error) {
-      navigate('/app');
-    }
     setIsSubmitting(false);
+    if (!error) {
+      navigate('/app', { replace: true });
+    }
   };
 
   if (loading) {
