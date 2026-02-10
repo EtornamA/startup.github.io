@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && npm run build:404",
-    "build:404": "cp dist/index.html dist/404.html",
+    "build:404": "node scripts/build-404.js",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"
